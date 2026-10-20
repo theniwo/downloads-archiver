@@ -1,0 +1,17 @@
+services:
+  archiver:
+    build: .
+    image: localhost/organize-cron:3.3.0-v3
+    container_name: downloads-archiver
+    restart: unless-stopped
+    env_file: archiver.env
+    environment:
+      DOWNLOADS_DIR_HOST: ${DOWNLOADS_DIR:?set DOWNLOADS_DIR}
+    volumes:
+      - ${DOWNLOADS_DIR:?set DOWNLOADS_DIR}:/downloads:rw
+      - ${ARCHIVE_DIR:?set ARCHIVE_DIR}:/archive:rw
+      - ./state:/state:rw
+      - ${TRASH_DIR:?set TRASH_DIR}:/trash:rw
+    security_opt:
+      - label=disable
+    network_mode: none
