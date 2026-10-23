@@ -3,7 +3,7 @@ services:
     build: .
     image: localhost/organize-cron:3.3.0-v3
     container_name: downloads-archiver
-    restart: unless-stopped
+    restart: always
     env_file: archiver.env
     environment:
       DOWNLOADS_DIR_HOST: ${DOWNLOADS_DIR:?set DOWNLOADS_DIR}
